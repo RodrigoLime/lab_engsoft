@@ -1,5 +1,5 @@
-import logo from '../assets/logo.svg';
-import logoText from '../assets/EcoImpacto.svg';
+import logo from '@/assets/logo.svg';
+import logoText from '@/assets/EcoImpacto.svg';
 import { Link } from 'react-router-dom';
 
 
