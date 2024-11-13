@@ -1,11 +1,35 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CalculatorContext } from "./context/CalculatorContext";
 import { ProgressBar } from "@/components/ProgressBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NextButton, SubmitButton } from "./components/NextButton";
 
 export const CalculatorRecycling = () => {
-    const {recycling, setRecycling} = useContext(CalculatorContext);
+    const [isFieldEmpty, setIsFieldEmpty] = useState(false);
+    const {electricity, setElectricity, fuel, setFuel, fuelEfficiency, setFuelEfficiency, gas, setGas, publicTransport, setPublicTransport, recycling, setRecycling} = useContext(CalculatorContext);
+
+    const navigate = useNavigate(); 
+
+    function handleSubmitToAPI() {
+        if (electricity === '' || fuel === '' || fuelEfficiency === '' || gas === '' || publicTransport === '' || recycling === '') {
+            setIsFieldEmpty(true);
+        } else {
+            setIsFieldEmpty(false);
+            // send data to API
+            navigate('/resultados');
+        }
+
+        // const requestData = {
+        //     electricity: electricity,
+        //     fuel: fuel,
+        //     fuelEfficiency: fuelEfficiency,
+        //     gas: gas,
+        //     publicTransport: publicTransport,
+        //     recycling: recycling
+        // }
+        
+    }
+
 
     return (
         <div className="flex flex-col items-center w-full gap-10">
@@ -22,9 +46,10 @@ export const CalculatorRecycling = () => {
                         onChange={(e) => setRecycling(e.target.value)}
                         className="flex w-5/6 p-4 text-2xl bg-white rounded-xl border border-dark" 
                     />
-                    <Link to="/resultados" className="mb-6">
-                        <SubmitButton />
-                    </Link>
+                     {isFieldEmpty && <p className="text-red-600 text-xl">Por favor, preencha todos os campos de emissão!</p>}
+                    <div className="mb-6">
+                        <SubmitButton onClick={handleSubmitToAPI} />
+                    </div>
                 </div>
             </div>
         </div>

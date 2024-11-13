@@ -1,20 +1,25 @@
 import { CheckCircle } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import solarPanel from '@/assets/solarpanel.png'
 import { Link } from "react-router-dom";
+import { AppContext } from "@/shared/contexts/AppContext";
 
 export const Results = () => {
-    const [results, setResults] = useState<number>(0);
     const [resultsText, setResultsText] = useState<string>('');
     const [resultsImage, setResultsImage] = useState<string>('');
 
-    useEffect(() => {
-        setResults(200); // Valor de exemplo, deve ser substituído pelo valor da API
+    const {emissionTotal, setEmissionTotal} = useContext(AppContext);
 
-        if (results < 10) {
+    useEffect(() => {
+        if (emissionTotal === 0) {
+            setEmissionTotal(200); // Example value, should be replaced with the value from the API
+        }
+        console.log(emissionTotal);
+
+        if (emissionTotal < 10) {
             setResultsText('Baixo');
             setResultsImage(solarPanel);
-        } else if (results < 100) {
+        } else if (emissionTotal < 100) {
             setResultsText('Médio');
             setResultsImage(solarPanel);
         } else {
@@ -34,7 +39,7 @@ export const Results = () => {
             <div className='flex flex-col flex-1 justify-center max-w-[1300px]'>
                 <div className="flex items-center justify-center bg-green gap-4 rounded-xl py-4 mb-[-12px] z-10">
                     <span className="text-white font-semibold text-3xl">Sua Emissão de Gás CO2 é de:</span>
-                    <span className="text-white font-semibold text-5xl">{results}</span>
+                    <span className="text-white font-semibold text-5xl">{emissionTotal}</span>
                 </div>
                 <div className="flex bg-lightgray/75 rounded-3xl pb-3 pr-8">
                     <img src={resultsImage} className="p-6 w-[450px]" />

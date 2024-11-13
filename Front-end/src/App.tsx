@@ -1,5 +1,5 @@
 import { AppRouter } from "./routes/AppRouter"
-import { Providers } from "./shared/Providers"
+import { Providers } from "@/shared/providers/Providers"
 
 function App() {
   return (
