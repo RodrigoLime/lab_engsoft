@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EcoImpacto.Application.UseCases.Calculator;
 using EcoImpacto.Communication.Requests;
@@ -18,16 +18,21 @@ namespace EcoImpacto.API.Controllers
             _dbContext = dbContext;
         }
 
+        [HttpGet]
+        [Route("/")]
+        public IActionResult Root()
+        {
+            return Ok("API is running!");
+        }
+
         [HttpPost]
         [ProducesResponseType(typeof(ResponseCalculatorResultJson), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult Calculator([FromBody] RequestCalculatorResultJson request)
         {
             var useCase = new RegisterCalculatorDataUseCase();
-
             var response = useCase.Execute(request);
 
-            
             _dbContext.CalculatorData.Add(request);
             _dbContext.SaveChanges();
 
