@@ -94,16 +94,26 @@ export const Ranking = () => {
 
     const {emissionTotal} = useContext(AppContext)
 
+    const [formData, setFormData] = useState({
+        name: '',
+        email: ''
+    });
+
     useEffect(() => {
         tempData.sort((a, b) => b.score - a.score);
         setRankingData(tempData);
-        console.log(emissionTotal);
     }, []);
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log('Form submitted:', formData);
+        //TODO: Enviar o formData para o backend
+    };
 
 
     return (
-        <div className="flex flex-col">
-            <div className="flex gap-32 my-16">
+        <div className="flex flex-col w-full items-center">
+            <div className="flex gap-32 my-8">
                 <div className="flex w-[600px] overflow-hidden">
                     <img src={tempImg} /> 
                 </div>
@@ -133,17 +143,36 @@ export const Ranking = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                <div>
-                    <span>Contato</span>
+            <div className="flex w-full bg-black/70 justify-center">
+                <div className="flex w-full justify-between max-w-[1328px] mt-6">
                     <div>
-                        <Envelope size={20} />
-                        <span>EcoImpacto@gmail.com</span>
+                        <span className="text-white text-xl">Contato</span>
+                        <div className="text-white flex items-center gap-3 mt-6">
+                            <Envelope size={50} weight="thin" />
+                            <span>EcoImpacto@gmail.com</span>
+                        </div>
                     </div>
+                    <span className="text-white text-3xl pl-40">Envie seu Resultado para nós! -</span>
+                    <form className="flex flex-col gap-6 mb-8" onSubmit={handleSubmit}>
+                        <input 
+                            type="text" 
+                            name="name"
+                            placeholder="Nome Completo" 
+                            className="w-96 h-10 bg-transparent border border-lightgray rounded text-white" 
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        />
+                        <input 
+                            type="text" 
+                            name="email"
+                            placeholder="Email" 
+                            className="w-96 h-10 bg-transparent border border-lightgray rounded text-white"
+                            value={formData.email}
+                            onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        />
+                        <button type="submit" className="bg-lightgray rounded h-10 text-xl">Enviar</button>
+                    </form>
                 </div>
-                <form>
-                    <input />
-                </form>
             </div>
         </div>
     );
