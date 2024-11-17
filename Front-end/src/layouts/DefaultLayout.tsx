@@ -43,7 +43,7 @@ export const DefaultLayout = () => {
     } 
 
     return (
-        <div className="flex flex-col items-center flex-1 min-h-screen" 
+        <div className="flex flex-col items-center flex-1 h-screen" 
         style={{
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: 'cover',
@@ -52,7 +52,7 @@ export const DefaultLayout = () => {
             <div className="flex w-full">
                 <Nav />
             </div>
-            <div className="flex h-full overflow-auto flex-1">
+            <div className="flex h-full w-full justify-center overflow-auto flex-1">
                 <Outlet />
             </div>    
         </div>
