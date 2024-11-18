@@ -41,6 +41,8 @@ export const CalculatorRecycling = () => {
                 <div className="flex flex-col justify-center items-center gap-20 bg-lightgray rounded-xl min-w-[600px]">
                     <p className="mt-4 px-8 text-dark">Insira quantas vezes por mês você costuma reciclar.</p>
                     <input  
+                        type="number"
+                        min="0" 
                         placeholder="0" 
                         value={recycling} 
                         onChange={(e) => setRecycling(e.target.value)}

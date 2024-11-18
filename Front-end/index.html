@@ -1,40 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoImpacto Data Input</title>
-</head>
-<body>
-    <h1>EcoImpacto Data Input</h1>
-    <form id="dataForm">
-        <label for="nomeUsuario">Nome do Usuário:</label>
-        <input type="text" id="nomeUsuario" name="nomeUsuario" required><br><br>
+  <head>
+    <meta charset="UTF-8" />
 
-        <label for="emailUsuario">Email do Usuário:</label>
-        <input type="email" id="emailUsuario" name="emailUsuario" required><br><br>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        <label for="consumoEnergiaKWh">Consumo de Energia (kWh):</label>
-        <input type="number" id="consumoEnergiaKWh" name="consumoEnergiaKWh" required><br><br>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <label for="consumoGasM3">Consumo de Gás (m³):</label>
-        <input type="number" id="consumoGasM3" name="consumoGasM3" required><br><br>
-
-        <label for="consumoCombustivelLitros">Consumo de Combustível (litros):</label>
-        <input type="number" id="consumoCombustivelLitros" name="consumoCombustivelLitros" required><br><br>
-
-        <label for="consumoVeiculoKmPorLitro">Consumo do Veículo (km/l):</label>
-        <input type="number" id="consumoVeiculoKmPorLitro" name="consumoVeiculoKmPorLitro" required><br><br>
-
-        <label for="transportePublicoKm">Transporte Público (km):</label>
-        <input type="number" id="transportePublicoKm" name="transportePublicoKm" required><br><br>
-
-        <label for="praticasReciclagem">Práticas de Reciclagem:</label>
-        <input type="number" id="praticasReciclagem" name="praticasReciclagem" required><br><br>
-
-        <button type="submit">Enviar Dados</button>
-    </form>
-
-    <script src="script.js"></script>
-</body>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
+    <title>EcoImpacto</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
