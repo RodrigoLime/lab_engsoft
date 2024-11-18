@@ -3,6 +3,7 @@ import tempImg from "../../assets/solarpanel.png";
 import { api } from "@/shared/services/api";
 import { AppContext } from "@/shared/contexts/AppContext";
 import { Envelope } from "@phosphor-icons/react";
+import { Bar } from "react-chartjs-2";
 
 const tempData = [
     {
@@ -115,7 +116,7 @@ export const Ranking = () => {
         <div className="flex flex-col w-full items-center">
             <div className="flex gap-32 my-8">
                 <div className="flex w-[600px] overflow-hidden">
-                    <img src={tempImg} /> 
+                    <RankingChart data={rankingData} />
                 </div>
                 <div className="flex flex-col w-[600px] items-center">
                     <h1 className="flex items-center justify-center text-4xl py-3 mb-[-12px] z-10 rounded w-full bg-blue text-white">Ranking</h1>
@@ -177,3 +178,43 @@ export const Ranking = () => {
         </div>
     );
 };
+
+
+interface RankingChartProps {
+    data: {
+        score: number;
+    } [];
+}
+
+const RankingChart = ({data}: RankingChartProps) => {
+  const [chartKey, setChartKey] = useState<number>(0);
+
+  useEffect(() => {
+    setChartKey(prevKey => prevKey + 1);
+  }, [data]);
+
+  return (
+    <div className="h-full w-full">
+        <Bar
+            key={chartKey} 
+            data={{
+                labels: data.map(item => item.score),
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Emissão de CO2',
+                        data: data.map(item => item.score),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                ],
+            }} 
+            options={{
+                responsive: true,
+                maintainAspectRatio: false,
+            }} 
+        />
+    </div>
+  )
+}
