@@ -7,8 +7,8 @@ namespace EcoImpacto.Data
     {
         public EcoImpactoDbContext(DbContextOptions<EcoImpactoDbContext> options) : base(options) { }
 
-        public DbSet<RequestCalculatorResultJson> CalculatorData { get; set; }
-
+        public DbSet<RequestRegisterUserJson> CalculatorData { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

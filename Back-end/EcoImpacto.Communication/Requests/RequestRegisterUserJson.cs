@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace EcoImpacto.Communication.Requests
+﻿namespace EcoImpacto.Communication.Requests
 {
-    public class RequestCalculatorResultJson
+    public class RequestRegisterUserJson
     {
-        [Key]
+        public string Nome { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public double ConsumoEnergiaKWh { get; set; }
         public double ConsumoGasM3 { get; set; }
         public double ConsumoCombustivelLitros { get; set; }

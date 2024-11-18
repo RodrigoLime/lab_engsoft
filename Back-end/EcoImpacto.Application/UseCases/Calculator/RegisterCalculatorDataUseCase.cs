@@ -28,7 +28,11 @@ public class RegisterCalculatorDataUseCase
         return new ResponseCalculatorResultJson
         {
             result = totalEmission,
-            worstSector = worstSector
+            worstSector = worstSector,
+            energyDifference = energyDifference,
+            gasDifference = gasDifference,
+            fuelDifference = fuelDifference,
+            recyclingDifference = recyclingDifference
         };
     }
 

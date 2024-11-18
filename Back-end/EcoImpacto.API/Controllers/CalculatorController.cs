@@ -11,13 +11,6 @@ namespace EcoImpacto.API.Controllers
     [ApiController]
     public class CalculatorController : ControllerBase
     {
-        private readonly EcoImpactoDbContext _dbContext;
-
-        public CalculatorController(EcoImpactoDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
         [HttpGet]
         [Route("/")]
         public IActionResult Root()
@@ -32,9 +25,6 @@ namespace EcoImpacto.API.Controllers
         {
             var useCase = new RegisterCalculatorDataUseCase();
             var response = useCase.Execute(request);
-
-            _dbContext.CalculatorData.Add(request);
-            _dbContext.SaveChanges();
 
             return Ok(response);
         }

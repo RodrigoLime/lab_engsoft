@@ -8,9 +8,12 @@ namespace EcoImpacto.Communication.Responses
     public class ResponseCalculatorResultJson
     {
         [Key]
-        public string UserName { get; set; }
-        public string UserEmail { get; set; }
         public double result { get; set; }
-        public string worstSector { get; set; }
+        public double energyDifference { get; set; }
+        public double gasDifference { get; set; }
+        public double fuelDifference { get; set; }
+        public double recyclingDifference { get; set; }
+        public string worstSector { get; set; } = string.Empty;
+
     }
 }
