@@ -9,10 +9,6 @@ namespace EcoImpacto.Communication.Responses
     {
         [Key]
         public double result { get; set; }
-        public double energyDifference { get; set; }
-        public double gasDifference { get; set; }
-        public double fuelDifference { get; set; }
-        public double recyclingDifference { get; set; }
         public string worstSector { get; set; } = string.Empty;
 
     }

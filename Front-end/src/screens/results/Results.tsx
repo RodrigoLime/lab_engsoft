@@ -1,14 +1,21 @@
 import { CheckCircle } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import solarPanel from '@/assets/solarpanel.png'
+import bus from '@/assets/bus.png'
+import pipe from '@/assets/pipe.png'
+import recycle from '@/assets/recycle.png'
 import { Link } from "react-router-dom";
 import { AppContext } from "@/shared/contexts/AppContext";
+import { CalculatorContext } from "../calculator/context/CalculatorContext";
 
 export const Results = () => {
     const [resultsText, setResultsText] = useState<string>('');
     const [resultsImage, setResultsImage] = useState<string>('');
 
     const {emissionTotal, setEmissionTotal} = useContext(AppContext);
+    const [worstSector, setWorstSector] = useState<string>('Energia');
+
+    const { electricity, fuel, gas, recycling } = useContext(CalculatorContext);
 
     useEffect(() => {
         if (emissionTotal === 0) {
@@ -16,17 +23,19 @@ export const Results = () => {
         }
         console.log(emissionTotal);
 
-        if (emissionTotal < 10) {
-            setResultsText('Baixo');
-            setResultsImage(solarPanel);
-        } else if (emissionTotal < 100) {
-            setResultsText('Médio');
-            setResultsImage(solarPanel);
-        } else {
+        if (worstSector === ('Energia')) {
             setResultsText('Identificamos que seu uso de energia está bem acima da média, recomendamos que você instale placas solares, para ajudar tanto no valor da conta, quanto o meio ambiente!');
             setResultsImage(solarPanel);
+        } else if (worstSector === ('Gás')) { 
+            setResultsText('Identificamos que seu uso de gas está bem acima da média, recomendamos reduzir o seu consúmo de gás e manter um ambiente mais verde! Um encanador pode te ajudar a resolver esse problema');
+            setResultsImage(pipe);
+        } else if (worstSector === ('Combustível')) {
+            setResultsText('Identificamos que você anda utilizando muito transporte público, recomendamos que você comece a utilizar mais transporte público para ajudar o meio ambiente');
+            setResultsImage(bus);
+        } else if (worstSector === ('Reciclagem')) {
+            setResultsText('Identificamos que você anda reciclando pouco, recomendamos seguir mais práticas de reciclagem como jogar o lixo no lugar adequado');
+            setResultsImage(recycle);
         }
-
     }, []);
 
 
@@ -46,11 +55,25 @@ export const Results = () => {
                     <div className="flex flex-col mt-6 justify-between">
                         <p className="text-2xl font-semibold">{resultsText}</p>
                         <div className="flex flex-col text-xl gap-3">
-                            <span className="border-b border-dark font-semibold">Fonte</span>
-                            <span className="border-b border-dark">Eletricidade</span>
-                            <span className="border-b border-dark">Gás</span>
-                            <span className="border-b border-dark">Transporte</span>
-                            <span className="border-b border-dark">Reciclagem</span>
+                            <div className="border-b border-dark font-semibold">
+                                <span>Fonte</span>
+                            </div>
+                            <div className="flex border-b border-dark gap-4">
+                                <span>Eletricidade:</span>
+                                <span>{electricity}</span>
+                            </div>
+                            <div className="flex border-b border-dark gap-4">
+                                <span>Gás:</span>
+                                <span>{gas}</span>
+                            </div>
+                            <div className="flex border-b border-dark gap-4">
+                                <span>Transporte:</span>
+                                <span>{fuel}</span>
+                            </div>
+                            <div className="flex border-b border-dark gap-4">
+                                <span>Reciclagem:</span>
+                                <span>{recycling}</span>
+                            </div> 
                         </div>
                         <Link to="/ranking" className="self-end">
                             <button className="bg-blue text-white text-xl px-16 py-3 rounded-full mr-14 hover:bg-blue/75">

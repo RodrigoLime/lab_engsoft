@@ -22,7 +22,7 @@ export const AppRouter = () => {
                 <Route path="/calculadora-transporte" element={<CalculatorProvider><CalculatorTransport /></CalculatorProvider>} />
                 <Route path="/calculadora-reciclagem" element={<CalculatorProvider><CalculatorRecycling /></CalculatorProvider>} />
 
-                <Route path="/resultados" element={<Results />} />
+                <Route path="/resultados" element={<CalculatorProvider><Results /></CalculatorProvider>} />
 
                 <Route path="/ranking" element={<Ranking />} />
 

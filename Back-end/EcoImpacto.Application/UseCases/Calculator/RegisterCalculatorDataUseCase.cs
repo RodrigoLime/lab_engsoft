@@ -29,10 +29,6 @@ public class RegisterCalculatorDataUseCase
         {
             result = totalEmission,
             worstSector = worstSector,
-            energyDifference = energyDifference,
-            gasDifference = gasDifference,
-            fuelDifference = fuelDifference,
-            recyclingDifference = recyclingDifference
         };
     }
 

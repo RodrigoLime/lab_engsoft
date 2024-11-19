@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
 });
 
 
-builder.WebHost.UseUrls("http://*:5000");
+builder.WebHost.UseUrls("https://*:5000");
 
 builder.Services.AddDbContext<EcoImpactoDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection")));
