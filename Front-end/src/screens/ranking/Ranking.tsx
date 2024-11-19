@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import tempImg from "../../assets/solarpanel.png";
 import { api } from "@/shared/services/api";
 import { AppContext } from "@/shared/contexts/AppContext";
 import { Envelope } from "@phosphor-icons/react";
 import { Bar } from "react-chartjs-2";
+import {Chart as ChartJS, registerables} from 'chart.js';
+
+ChartJS.register(...registerables);
 
 const tempData = [
     {
@@ -91,6 +93,7 @@ const tempData = [
 
 export const Ranking = () => {
     const [rankingData, setRankingData] = useState<any[]>([]);
+
     //TODO: Fazer o grafico, vai ter que ter um contexto para ter o valor do usuario, e depois injetar no rankingData, o contexto deve mudar o valor quando o usuario calcular de novo
 
     const {emissionTotal} = useContext(AppContext)
@@ -101,7 +104,16 @@ export const Ranking = () => {
     });
 
     useEffect(() => {
-        tempData.sort((a, b) => b.score - a.score);
+
+        if (tempData.some(item => item.name === 'Você')) {
+            delete tempData[tempData.findIndex(item => item.name === 'Você')];
+        }
+        if (emissionTotal != 0) {
+            tempData.push({ name: 'Você', score: emissionTotal });
+        }
+        tempData.sort((a, b) => a.score - b.score);
+        const scores = tempData.map(item => ({ score: item.score }));
+        console.log(scores);
         setRankingData(tempData);
     }, []);
 
@@ -111,9 +123,12 @@ export const Ranking = () => {
         //TODO: Enviar o formData para o backend
     };
 
+    const voceIndex = tempData.findIndex(item => item.name === "Você");
+
 
     return (
         <div className="flex flex-col w-full items-center">
+            <span></span>
             <div className="flex gap-32 my-8">
                 <div className="flex w-[600px] overflow-hidden">
                     <RankingChart data={rankingData} />
@@ -137,7 +152,7 @@ export const Ranking = () => {
                         </div>
                         <div className="border-t border-dark h-3"></div>
                         <div className="flex justify-between px-5 py-2 bg-lightgreen text-2xl pt-2 mb-4">
-                            <span>100</span>
+                            <span>{voceIndex + 1}</span>
                             <span>Você</span>
                             <span>{emissionTotal}</span>
                         </div>
@@ -150,7 +165,7 @@ export const Ranking = () => {
                         <span className="text-white text-xl">Contato</span>
                         <div className="text-white flex items-center gap-3 mt-6">
                             <Envelope size={50} weight="thin" />
-                            <span>EcoImpacto@gmail.com</span>
+                            <span>ecoimpacto@gmail.com</span>
                         </div>
                     </div>
                     <span className="text-white text-3xl pl-40">Envie seu Resultado para nós! -</span>
@@ -182,6 +197,7 @@ export const Ranking = () => {
 
 interface RankingChartProps {
     data: {
+        name: string;
         score: number;
     } [];
 }
@@ -193,20 +209,28 @@ const RankingChart = ({data}: RankingChartProps) => {
     setChartKey(prevKey => prevKey + 1);
   }, [data]);
 
+  const backgroundColors = data.map((item) => 
+    item.name === 'Você' ? '#1e90ff' : '#b9feb9' // Change the color of the first bar as an example
+ );
+
+  const borderColors = data.map((item) =>
+    item.name === 'Você' ? '#1e90ff' : '#009200' // Change the color of the first bar as an example
+ );
+
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full bg-white border-4 border-green rounded-lg">
         <Bar
             key={chartKey} 
             data={{
-                labels: data.map(item => item.score),
+                labels: data.map(item => item.name),
                 datasets: [
                     {
                         type: 'bar',
                         label: 'Emissão de CO2',
                         data: data.map(item => item.score),
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColors,
+                        borderWidth: 2
                     },
                 ],
             }} 

@@ -18,14 +18,16 @@ export const CalculatorTransport = () => {
                     <div className="flex flex-col justify-center items-center gap-8 bg-lightgray rounded-xl pb-12">
                         <p className="mt-4 px-8 text-dark">Insira quantos litros de combustível você usa no mês com seu carro/moto pessoal.</p>
                         <input  
-                            placeholder="0" 
+                            placeholder="0"
+                            type="number"  
                             value={fuel} 
                             onChange={(e) => setFuel(e.target.value)}
                             className="flex w-5/6 p-4 text-2xl bg-white rounded-xl border border-dark" 
                         />
                         <p className="px-8 text-dark">Insira quantos km/l seu carro/moto costuma fazer em média.</p>
                         <input  
-                            placeholder="0" 
+                            placeholder="0"
+                            type="number"  
                             value={fuelEfficiency} 
                             onChange={(e) => setFuelEfficiency(e.target.value)}
                             className="flex w-5/6 p-4 text-2xl bg-white rounded-xl border border-dark" 
@@ -37,7 +39,8 @@ export const CalculatorTransport = () => {
                     <div className="flex flex-col justify-center items-center gap-14 bg-lightgray rounded-xl w-full">
                         <p className="mt-4 px-8 text-dark">Insira quantos quilômetros você costuma andar de transporte público no mês.</p>
                         <input  
-                            placeholder="0" 
+                            placeholder="0"
+                            type="number"  
                             value={publicTransport} 
                             onChange={(e) => setPublicTransport(e.target.value)}
                             className="flex w-5/6 p-4 text-2xl bg-white rounded-xl border border-dark" 

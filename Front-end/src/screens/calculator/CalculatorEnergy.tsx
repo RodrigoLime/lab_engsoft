@@ -17,7 +17,8 @@ export const CalculatorEnergy = () => {
                 <div className="flex flex-col justify-center items-center gap-20 bg-lightgray rounded-xl">
                     <p className="mt-4 px-8 text-dark">Insira seu consumo MENSAL de energia elétrica em kWh. Veja onde encontrar essa informação na sua conta de energia elétrica</p>
                     <input  
-                        placeholder="0" 
+                        placeholder="0"
+                        type="number" 
                         value={electricity} 
                         onChange={(e) => setElectricity(e.target.value)}
                         className="flex w-5/6 p-4 text-2xl bg-white rounded-xl border border-dark" 
