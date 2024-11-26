@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class eco : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,14 +17,9 @@ namespace API.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ConsumoEnergiaKWh = table.Column<double>(type: "double precision", nullable: false),
-                    ConsumoGasM3 = table.Column<double>(type: "double precision", nullable: false),
-                    ConsumoCombustivelLitros = table.Column<double>(type: "double precision", nullable: false),
-                    ConsumoVeiculoKmPorLitro = table.Column<double>(type: "double precision", nullable: false),
-                    TransportePublicoKm = table.Column<double>(type: "double precision", nullable: false),
-                    PraticasReciclagem = table.Column<int>(type: "integer", nullable: false),
-                    NomeUsuario = table.Column<string>(type: "text", nullable: false),
-                    EmailUsuario = table.Column<string>(type: "text", nullable: false)
+                    Nome = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Result = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(EcoImpactoDbContext))]
-    [Migration("20241030224434_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241126231836_eco")]
+    partial class eco
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace API.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EcoImpacto.Communication.Requests.RequestCalculatorResultJson", b =>
+            modelBuilder.Entity("EcoImpacto.Communication.Requests.RequestRegisterUserJson", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,30 +32,15 @@ namespace API.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("ConsumoCombustivelLitros")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("ConsumoEnergiaKWh")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("ConsumoGasM3")
-                        .HasColumnType("double precision");
-
-                    b.Property<double>("ConsumoVeiculoKmPorLitro")
-                        .HasColumnType("double precision");
-
-                    b.Property<string>("EmailUsuario")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("NomeUsuario")
+                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PraticasReciclagem")
-                        .HasColumnType("integer");
-
-                    b.Property<double>("TransportePublicoKm")
+                    b.Property<double>("Result")
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");

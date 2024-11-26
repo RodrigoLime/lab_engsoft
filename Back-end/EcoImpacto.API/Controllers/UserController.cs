@@ -28,33 +28,36 @@ namespace API.Controllers
             var useCase = new RegisterUserUseCase();
             var response = useCase.Execute(request);
 
-
             _dbContext.CalculatorData.Add(request);
             _dbContext.SaveChanges();
 
-            var uri = Url.Action("GetUser", new { id = response.requestEmail });
-
-            if (uri == null)
-            {
-                return BadRequest("Não foi possível gerar a uri.");
-            }
-
-            return Created(uri, request);
+            return Created(string.Empty, request);
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(ResponseGetAllUserJson), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAllUser([FromBody] RequestGetAllUserJson request)
+        public IActionResult GetAllUser()
         {
-            var useCase = new GetAllUserUseCase();
-            var response = useCase.Execute(request);
 
-            if (response == null)
+            var users = _dbContext.CalculatorData
+            .OrderBy(u => u.Result) // Ordena pelo resultado (maior primeiro)
+            .Select(u => new ResponseGetAllUserJson
+            {
+                Id = u.Id,
+                Name = u.Nome,
+                Email = u.Email,
+                Result = u.Result
+            })
+            .ToList();
+
+            // Verifica se existem usuários
+            if (users.Count == 0)
             {
                 return NotFound("Não há usuários cadastrados.");
             }
-            return Ok(response);
+
+            return Ok(users); // Retorna a lista de usuários ordenada
         }
 
     }
