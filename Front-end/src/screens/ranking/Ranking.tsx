@@ -18,7 +18,7 @@ export const Ranking = () => {
 
     //TODO: Fazer o grafico, vai ter que ter um contexto para ter o valor do usuario, e depois injetar no rankingData, o contexto deve mudar o valor quando o usuario calcular de novo
 
-    const {emissionTotal} = useContext(AppContext)
+    const {emissionTotal, setEmissionTotal} = useContext(AppContext)
 
     const [formData, setFormData] = useState({
         nome: '',
@@ -43,6 +43,7 @@ export const Ranking = () => {
                 tempData.sort((b, a) => b.result - a.result);
 
                 setRankingData(tempData);
+                
 
             } catch (error) {
                 console.error(error);
@@ -72,6 +73,9 @@ export const Ranking = () => {
             });
 
             setIsFormSubmitted(true);
+            setEmissionTotal(0);
+
+            setRankingData(rankingData.filter(item => item.name !== 'Você'));
         }
 
         fetchData();
@@ -101,15 +105,15 @@ export const Ranking = () => {
                                 <div key={index} className="flex justify-between px-5 py-1 bg-lightgray text-2xl">
                                     <span>{index + 1}</span>
                                     <span>{item.name}</span>
-                                    <span>{item.result}</span>          
+                                    <span>{item.result.toFixed(1)}</span>          
                                 </div>
                             ))}                        
                         </div>
                         <div className="border-t border-dark h-3"></div>
                         <div className="flex justify-between px-5 py-2 bg-lightgreen text-2xl pt-2 mb-4">
-                            <span>{voceIndex + 1}</span>
+                            <span>{emissionTotal == 0 ?  '-- ': voceIndex + 1}</span>
                             <span>Você</span>
-                            <span>{emissionTotal}</span>
+                            <span>{emissionTotal == 0 ? '--' : emissionTotal.toFixed(1)}</span>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ export const AppProvider = ({children}: {children: ReactNode}) => {
     const [emissionTotal, setEmissionTotal] = useState<number>(() => {
         // Initialize state from local storage if available
         const storedValue = localStorage.getItem('emissionTotal');
-        return storedValue ? parseInt(storedValue, 10) : 0;
+        return storedValue ? parseFloat(storedValue) : 0;
     });
 
     useEffect(() => {

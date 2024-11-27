@@ -44,7 +44,7 @@ export const Results = () => {
             <div className='flex flex-col flex-1 justify-center max-w-[1300px]'>
                 <div className="flex items-center justify-center bg-green gap-4 rounded-xl py-4 mb-[-12px] z-10">
                     <span className="text-white font-semibold text-3xl">Sua Emissão de Gás CO2 é de:</span>
-                    <span className="text-white font-semibold text-5xl">{emissionTotal}</span>
+                    <span className="text-white font-semibold text-5xl">{emissionTotal.toFixed(1)}</span>
                 </div>
                 <div className="flex bg-lightgray/75 rounded-3xl pb-3 pr-8">
                     <img src={resultsImage} className="p-6 w-[450px]" />
@@ -72,7 +72,7 @@ export const Results = () => {
                             </div> 
                         </div>
                         <Link to="/ranking" className="self-end">
-                            <button className="bg-blue text-white text-xl px-16 py-3 rounded-full mr-14 hover:bg-blue/75">
+                            <button className="bg-blue text-white text-xl px-16 py-3 rounded-full mr-14 mt-3 hover:bg-blue/75">
                                 COMPARE
                             </button>
                         </Link>
