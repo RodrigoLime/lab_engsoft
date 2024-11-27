@@ -12,15 +12,11 @@ export const Results = () => {
     const [resultsText, setResultsText] = useState<string>('');
     const [resultsImage, setResultsImage] = useState<string>('');
 
-    const {emissionTotal, setEmissionTotal} = useContext(AppContext);
-    const [worstSector, setWorstSector] = useState<string>('Energia');
+    const {emissionTotal} = useContext(AppContext);
 
-    const { electricity, fuel, gas, recycling } = useContext(CalculatorContext);
+    const { electricity, fuel, gas, recycling, worstSector } = useContext(CalculatorContext);
 
     useEffect(() => {
-        if (emissionTotal === 0) {
-            setEmissionTotal(200); // Example value, should be replaced with the value from the API
-        }
         console.log(emissionTotal);
 
         if (worstSector === ('Energia')) {

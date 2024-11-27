@@ -7,7 +7,7 @@ type APIInstanceProps = {
   } & AxiosInstance;
   
 export const api = axios.create({
-baseURL: 'http://54.162.187.188/api/',
+baseURL: 'http://54.162.187.188:5000/api/',
 headers: {
     'Content-Type': 'application/json',
 },

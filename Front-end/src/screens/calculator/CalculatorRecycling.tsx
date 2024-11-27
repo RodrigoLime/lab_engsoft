@@ -3,10 +3,13 @@ import { CalculatorContext } from "./context/CalculatorContext";
 import { ProgressBar } from "@/components/ProgressBar";
 import { Link, useNavigate } from "react-router-dom";
 import { NextButton, SubmitButton } from "./components/NextButton";
+import { api } from "@/shared/services/api";
+import { AppContext } from "@/shared/contexts/AppContext";
 
 export const CalculatorRecycling = () => {
     const [isFieldEmpty, setIsFieldEmpty] = useState(false);
-    const {electricity, setElectricity, fuel, setFuel, fuelEfficiency, setFuelEfficiency, gas, setGas, publicTransport, setPublicTransport, recycling, setRecycling} = useContext(CalculatorContext);
+    const {electricity, fuel, fuelEfficiency, gas, publicTransport, recycling, setRecycling, setWorstSector} = useContext(CalculatorContext);
+    const {setEmissionTotal} = useContext(AppContext);
 
     const navigate = useNavigate(); 
 
@@ -15,18 +18,26 @@ export const CalculatorRecycling = () => {
             setIsFieldEmpty(true);
         } else {
             setIsFieldEmpty(false);
-            // send data to API
-            navigate('/resultados');
-        }
 
-        // const requestData = {
-        //     electricity: electricity,
-        //     fuel: fuel,
-        //     fuelEfficiency: fuelEfficiency,
-        //     gas: gas,
-        //     publicTransport: publicTransport,
-        //     recycling: recycling
-        // }
+            const fetchData = async () => {
+                const requestData = {
+                    electricity: electricity,
+                    ConsumoGasM3: gas,
+                    ConsumoCombustivelLitros : fuel,
+                    onsumoVeiculoKmPorLitro: fuelEfficiency,
+                    TransportePublicoKm: publicTransport,
+                    PraticasReciclagem: recycling
+                }
+                const response = await api.post('/calculator/', requestData);
+                console.log(response.data);
+                
+                setEmissionTotal(response.data.result);
+                setWorstSector(response.data.worstSector);
+
+                navigate('/resultados');
+            }
+            fetchData();         
+        }
         
     }
 
